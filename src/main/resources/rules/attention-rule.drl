@@ -1,0 +1,16 @@
+package rules
+import demo.model.WaterLevel;
+import demo.model.Temperature;
+import demo.model.Snow;
+import demo.model.Rain;
+import demo.model.Decision;
+global demo.model.Result resultObj;
+
+
+rule "Attention-situation rule"
+	 when
+        WaterLevel(isHigh() == false) and Rain(isHeavy() == true) and Snow(isALot() == true) and Temperature(isHigh() == true) or
+        WaterLevel(isHigh() == true) and Rain(isHeavy() == false) and Snow(isALot() == true) and Temperature(isHigh() == false)
+     then
+        resultObj.setDecision(Decision.INCREASE_ATTENTION);
+end
